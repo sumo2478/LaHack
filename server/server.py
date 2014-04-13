@@ -2,10 +2,11 @@ from twisted.internet.protocol import Factory, Protocol
 from twisted.internet import reactor
 
 import json
-
 import constants
+import MySQLdb
+from urllib import urlencode
+from urllib2 import urlopen
 
-from time import sleep
 
 PORT = 23316
 
@@ -21,27 +22,30 @@ class IphoneChat(Protocol):
         print "Client joined " + str(self)
 
     def connectionLost(self, reason):
+        print "Connection lost"
         if self.client_type == constants.ENTITY_TYPE_EMPLOYEE:
             self.factory.employees.remove(self)
+            print "Employee " + str(self.m_id) + " disconnected"
         elif self.client_type == constants.ENTITY_TYPE_CUSTOMER:
             if (self.associated_client):
                 self.associated_client.available = True    
+            print "Customer " + str(self.m_id) + " disconnected"
 
     def dataReceived(self, data):
         try:
             message = json.loads(data)
+
+            if (message['action'] == constants.ACTION_JOIN):
+                self.handle_join(message)
+            elif (message['action'] == constants.ACTION_MESSAGE):
+                self.handle_message(message)
+            elif (message['action'] == constants.ACTION_LEAVE):
+                self.handle_leave(message)
+            else:
+                self.handle_error()
         except:
             print "Invalid json input " + str(data)
             return
-        
-        if (message['action'] == constants.ACTION_JOIN):
-            self.handle_join(message)
-        elif (message['action'] == constants.ACTION_MESSAGE):
-            self.handle_message(message)
-        elif (message['action'] == constants.ACTION_LEAVE):
-            self.handle_leave(message)
-        else:
-            self.handle_error()
 
         print message
 
@@ -57,6 +61,16 @@ class IphoneChat(Protocol):
             self.client_type = constants.ENTITY_TYPE_EMPLOYEE
             self.factory.employees.append(self)
 
+            # Retrieve name for employee
+            db = MySQLdb.connect(host="localhost", user="root", passwd="customer", db="LaHacks")
+            cursor = db.cursor()
+
+            cursor.execute("SELECT name FROM Employees WHERE id = %s", self.m_id)
+            db.commit()
+
+            row = cursor.fetchone()
+            self.name = row[0]
+        
         # If the client is a customer
         elif (message['entity_type'] == constants.ENTITY_TYPE_CUSTOMER):
             self.client_type = constants.ENTITY_TYPE_CUSTOMER
@@ -91,17 +105,26 @@ class IphoneChat(Protocol):
             response['name'] = self.name
             response['message'] = message['message']
             self.associated_client.message(json.dumps(response))
+            print "Score: "
+            self.getScore(message['message'])
         else:
             response['type'] = constants.ERROR
             response['message'] = "Client not conencted"
             self.message(json.dumps(response))
 
-
-    def handle_leave(self, message):
-        print "Handling leave"
-
     def handle_error(self):
         print "Handling error"
+
+    def getScore(self, text):
+        url = "https://api.sentigem.com/external/get-sentiment"
+        api_key = "6352f666047a4a30aa8f346d7793d5296Twn2FfkboMSWjt9OYg5PyAJG7v8BK1q"
+        search_url = [url, '?']
+        args = {'api-key': api_key, 'text':text}
+
+        search_url.append(urlencode(args))
+        data = json.loads(urlopen(''.join(search_url)).read())
+        print str(data)
+
 
 factory = Factory()
 factory.protocol = IphoneChat
