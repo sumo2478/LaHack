@@ -22,7 +22,8 @@
 		0018F23D18F93FD70032330F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0018F23B18F93FD70032330F /* InfoPlist.strings */; };
 		0018F23F18F93FD70032330F /* CSR_Analyzer_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018F23E18F93FD70032330F /* CSR_Analyzer_iOSTests.m */; };
 		0018F24E18F940800032330F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018F24C18F940800032330F /* ChatViewController.m */; };
-		0018F25318F94B080032330F /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018F25118F94B080032330F /* TableViewController.m */; };
+		A70F594818FA018B00E5F048 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F594518FA018B00E5F048 /* MessageCell.m */; };
+		A70F594918FA018B00E5F048 /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F594718FA018B00E5F048 /* MessageObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +58,10 @@
 		0018F23E18F93FD70032330F /* CSR_Analyzer_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSR_Analyzer_iOSTests.m; sourceTree = "<group>"; };
 		0018F24B18F940800032330F /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = ../../ChatViewController.h; sourceTree = "<group>"; };
 		0018F24C18F940800032330F /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = ../../ChatViewController.m; sourceTree = "<group>"; };
-		0018F25018F94B080032330F /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		0018F25118F94B080032330F /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		A70F594418FA018B00E5F048 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		A70F594518FA018B00E5F048 /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		A70F594618FA018B00E5F048 /* MessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageObject.h; sourceTree = "<group>"; };
+		A70F594718FA018B00E5F048 /* MessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,11 +121,13 @@
 		0018F21918F93FD70032330F /* CSR Analyzer iOS */ = {
 			isa = PBXGroup;
 			children = (
+				A70F594418FA018B00E5F048 /* MessageCell.h */,
+				A70F594518FA018B00E5F048 /* MessageCell.m */,
+				A70F594618FA018B00E5F048 /* MessageObject.h */,
+				A70F594718FA018B00E5F048 /* MessageObject.m */,
 				0018F22218F93FD70032330F /* AppDelegate.h */,
 				0018F22318F93FD70032330F /* AppDelegate.m */,
 				0018F22518F93FD70032330F /* Main.storyboard */,
-				0018F25018F94B080032330F /* TableViewController.h */,
-				0018F25118F94B080032330F /* TableViewController.m */,
 				0018F24B18F940800032330F /* ChatViewController.h */,
 				0018F24C18F940800032330F /* ChatViewController.m */,
 				0018F22818F93FD70032330F /* ViewController.h */,
@@ -262,8 +267,9 @@
 				0018F22A18F93FD70032330F /* ViewController.m in Sources */,
 				0018F22418F93FD70032330F /* AppDelegate.m in Sources */,
 				0018F24E18F940800032330F /* ChatViewController.m in Sources */,
-				0018F25318F94B080032330F /* TableViewController.m in Sources */,
+				A70F594818FA018B00E5F048 /* MessageCell.m in Sources */,
 				0018F22018F93FD70032330F /* main.m in Sources */,
+				A70F594918FA018B00E5F048 /* MessageObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +474,7 @@
 				0018F24418F93FD70032330F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0018F24518F93FD70032330F /* Build configuration list for PBXNativeTarget "CSR Analyzer iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -476,6 +483,7 @@
 				0018F24718F93FD70032330F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
